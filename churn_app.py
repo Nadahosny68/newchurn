@@ -70,4 +70,8 @@ if st.sidebar.button("🔮 Predict Churn"):
     # Probability bar chart
     st.subheader("📉 Prediction Probability")
     fig2, ax2 = plt.subplots()
-    ax2.bar(['No Churn', 'Churn']),
+    ax2.bar(['No Churn', 'Churn'], prob, color=['green', 'red'])  # Add 'prob' as height
+    ax2.set_ylabel("Probability")
+    ax2.set_ylim(0, 1)  # Optional: sets y-axis from 0 to 1
+    st.pyplot(fig2)
+
