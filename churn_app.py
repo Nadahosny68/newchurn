@@ -67,6 +67,11 @@ if st.sidebar.button("🔮 Predict Churn"):
     st.info(f"**Probability of Churn:** {prob[1]*100:.2f}%")
     st.write(f"📈 **Model Accuracy:** {acc*100:.2f}%")
 
+    # Display Prediction as a Progress Bar
+    st.subheader("📈 Churn Probability")
+    st.progress(int(prob[1] * 100))
+
+
     # Probability bar chart
     st.subheader("📉 Prediction Probability")
     fig2, ax2 = plt.subplots()
@@ -75,3 +80,21 @@ if st.sidebar.button("🔮 Predict Churn"):
     ax2.set_ylim(0, 1)  # Optional: sets y-axis from 0 to 1
     st.pyplot(fig2)
 
+if st.sidebar.button("Save Result"):
+    result = {
+        'Age': age,
+        'Tenure': tenure,
+        'Gender': gender,
+        'Prediction': 'Yes' if prediction == 1 else 'No',
+        'Probability': prob[1]
+    }
+    results_df = pd.DataFrame([result])
+    results_df.to_csv("prediction_result.csv", index=False)
+    st.success("Result saved to prediction_result.csv")
+
+#Add File Upload for Dataset (Optional override
+uploaded_file = st.sidebar.file_uploader("Upload your own Excel file", type=["xlsx"])
+if uploaded_file:
+    df = pd.read_excel(uploaded_file)
+else:
+    df = load_data()
