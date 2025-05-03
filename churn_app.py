@@ -7,10 +7,15 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
+
 # App configuration
 st.set_page_config(page_title="Churn Predictor", layout="wide")
-st.title("📉 Customer Churn Prediction App")
+st.title("Customer Churn Prediction App")
 st.markdown("Predict whether a customer is likely to churn based on basic demographics and tenure.")
+
+
+
 
 # Load default or user-uploaded dataset
 @st.cache_data
@@ -35,9 +40,13 @@ else:
     st.info("ℹ️ Using default dataset.")
 
 
+
+
 # Define features and labels
 X = df[['Age', 'Tenure', 'Sex']]
 y = df['Churn']
+
+
 
 # Split and train model
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
