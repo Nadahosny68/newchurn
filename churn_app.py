@@ -70,4 +70,4 @@ if st.sidebar.button("🔮 Predict Churn"):
     # Probability bar chart
     st.subheader("📉 Prediction Probability")
     fig2, ax2 = plt.subplots()
-    ax2.bar(['No Churn', 'Churn'],
+    ax2.bar(['No Churn', 'Churn']),
