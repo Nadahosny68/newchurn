@@ -42,6 +42,43 @@ else:
 
 
 
+# Data preprocessing
+required_columns = ['Age', 'Tenure', 'Sex', 'Churn']
+
+if not all(col in df.columns for col in required_columns):
+    st.error(f"❌ The uploaded file must contain the following columns: {required_columns}")
+    st.stop()
+
+# Drop rows with missing values in required columns
+df = df[required_columns].dropna()
+
+# Map categorical values
+df['Sex'] = df['Sex'].map({'Male': 0, 'Female': 1})
+df['Churn'] = df['Churn'].map({'No': 0, 'Yes': 1})
+
+# Ensure numeric types
+df[['Age', 'Tenure', 'Sex', 'Churn']] = df[['Age', 'Tenure', 'Sex', 'Churn']].apply(pd.to_numeric, errors='coerce')
+df.dropna(inplace=True)
+
+# Features and labels
+X = df[['Age', 'Tenure', 'Sex']]
+y = df['Churn']
+
+# Train/test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train model
+model = GaussianNB()
+model.fit(X_train, y_train)
+
+
+
+
+
+
+
+
+
 # Define features and labels
 X = df[['Age', 'Tenure', 'Sex']]
 y = df['Churn']
