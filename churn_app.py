@@ -11,8 +11,8 @@ st.title("📊 Customer Churn Prediction App")
 # Load the dataset
 @st.cache_data
 def load_data():
-    url = "https://raw.githubusercontent.com/hosnynada69/churn-data/main/churn_dataset_with_tenure.csv"
-    df = pd.read_csv(url)
+    url = "https://github.com/Nadahosny68/newchurn/blob/main/churn_dataset.xlsx"
+    df =  pd.read_excel("churn_dataset.xlsx")
     return df
 
 df = load_data()
