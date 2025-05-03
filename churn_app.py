@@ -12,15 +12,28 @@ st.set_page_config(page_title="Churn Predictor", layout="wide")
 st.title("📉 Customer Churn Prediction App")
 st.markdown("Predict whether a customer is likely to churn based on basic demographics and tenure.")
 
-# Load and preprocess data
+# Load default or user-uploaded dataset
 @st.cache_data
-def load_data():
-    df = pd.read_excel("churn_dataset.xlsx")
-    df['Sex'] = df['Sex'].map({'Male': 0, 'Female': 1})
-    df['Churn'] = df['Churn'].map({'No': 0, 'Yes': 1})
-    return df
+def load_default_data():
+    return pd.read_excel("churn_dataset.xlsx")
 
-df = load_data()
+st.sidebar.header("📁 Upload Dataset")
+uploaded_file = st.sidebar.file_uploader("Upload an Excel or CSV file", type=["xlsx", "csv"])
+
+if uploaded_file is not None:
+    try:
+        if uploaded_file.name.endswith('.csv'):
+            df = pd.read_csv(uploaded_file)
+        else:
+            df = pd.read_excel(uploaded_file)
+        st.success("✅ File uploaded and loaded successfully!")
+    except Exception as e:
+        st.error(f"❌ Error loading file: {e}")
+        df = load_default_data()
+else:
+    df = load_default_data()
+    st.info("ℹ️ Using default dataset.")
+
 
 # Define features and labels
 X = df[['Age', 'Tenure', 'Sex']]
