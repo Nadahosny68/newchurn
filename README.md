@@ -1,4 +1,4 @@
-Churn Prediction App
+### Churn Prediction App
 🔗My Churn App Link: https://nadahosny69.streamlit.app/
 🧠 App Purpose
 The Churn Prediction App is an interactive web-based tool built using Streamlit. Based on simple demographic and usage data, it helps businesses predict whether a customer is likely to churn (leave) or stay.
